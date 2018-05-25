@@ -1,2 +1,57 @@
-<iframe src="http://free.timeanddate.com/countdown/i61tw3zu/n179/cf100/cm0/cu4/ct0/cs0/ca0/cr0/ss0/cac000/cpc000/pcfff/tcf1d8e7/fs100/szw320/szh135/tatTime%20left%20to%20Event%20in/tac000/tptTime%20since%20Event%20started%20in/tpc000/mac000/mpc000/iso2018-12-31T23:59:59" allowTransparency="true" frameborder="0" width="320" height="135"></iframe>
+<!-- Display the countdown timer in an element -->
+<html>
+<head>
+    <link rel="icon" href="logo.jpeg">
+</head>
+<body>
+<center>
+<div id="scope"> <br /> </div>
+</center>
+<script>
+function countDown(id, target, message) {
+    // Get todays date and time
+    var targetTime = new Date(target).getTime();
+    var now = new Date().getTime();
 
+    // Find the distance between now an the count down date
+    var distance = targetTime - now;
+
+    // Time calculations for days, hours, minutes and seconds
+    var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+    // Display the result in the element with id="demo"
+    var m = "<h1>" + message +  "</h1>";
+    m = m + "<h2><font color=\"#006699\">" + "[" + target + "]:   " + 
+        days + " Days " + hours + " Hours " +
+        minutes + " Minutes " + seconds + " Seconds" +
+        "</font></h2>";
+    m = m + "<br /><hr><br />";
+    document.getElementById(id).innerHTML = m;
+
+    // If the count down is finished, write some text 
+    if (distance < 0) {
+      clearInterval(x);
+      document.getElementById("demo").innerHTML = "EXPIRED";
+    }
+}
+
+function countDownWrapper(id, target, message) {
+    var p = document.createElement("p");
+    p.setAttribute("id", id);
+    document.getElementById("scope").appendChild(p);
+    <!--document.body.appendChild(p);-->
+    var s = setInterval(countDown, 1000, id, target, message);
+}
+
+// Set the date we're counting down to
+countDownWrapper("S1", "June 7, 2018 01:00:00", "Database Partitioning Study");
+countDownWrapper("S2", "June 11, 2018 01:00:00", "Draft Partitioning Solution1");
+countDownWrapper("S3", "June 18, 2018 01:00:00", "Draft Partitioning Solution2");
+countDownWrapper("L1", "Oct 17, 2018 01:00:00", "SIGMOD 2019 Abstract");
+countDownWrapper("L2", "Oct 24, 2018 01:00:00", "SIGMOD 2019 Deadline");
+</script>
+</body>
+</html>
